@@ -74,7 +74,7 @@ TEST_F(EnemyTest, DamageReducesHealth) {                        // Tests that da
     EXPECT_EQ(enemy->getHealth(), 30);
 }
 
-TEST_F(EnemyTest, NonLethalDamageDoesntReduceHealthToZero) {    // Tests that non-lethal damage doesn't reduce the pig's health to zero.
+TEST_F(EnemyTest, NonLethalDamageDoesntZeroHealth) {            // Tests that non-lethal damage doesn't reduce the pig's health to zero.
     enemy->takeDamage(20);
     EXPECT_GT(enemy->getHealth(), 0);
 }
@@ -83,6 +83,24 @@ TEST_F(EnemyTest, Assert_LethalDamagePopsPig) {                 // Tests that le
     enemy->takeDamage(60);
     ASSERT_TRUE(enemy->checkIfPopped());
 }
+
+TEST_F(EnemyTest, Assert_LethalDamageZerosHealth) {             // Tests that lethal damage reduces the pig's health to zero or lower, using ASSERT_LE.
+    enemy->takeDamage(60);
+    ASSERT_LE(enemy->getHealth(), 0);  // getHealth() <= 0
+}
+
+TEST_F(EnemyTest, StringsIgnoreCase) {                          // Tests that two strings are equal, ignoring case.
+    std::string str1 = "Pig";
+    std::string str2 = "pig";
+	EXPECT_STRCASEEQ(str1.c_str(), str2.c_str());
+}
+
+TEST_F(EnemyTest, StringsNotEqual) {                            // Tests that two strings are not equal.
+    std::string str1 = "Pig";
+    std::string str2 = "Bird";
+    EXPECT_STRNE(str1.c_str(), str2.c_str());
+}
+
 int main(int argc, char** argv) {                               // Initializes GoogleTest and runs all tests.
     testing::InitGoogleTest(&argc, argv); 
     return RUN_ALL_TESTS();
