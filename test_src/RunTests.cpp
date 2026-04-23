@@ -104,6 +104,32 @@ TEST_F(EnemyTest, StringsNotEqual) {                            // Tests that tw
     std::string str2 = "Bird";
     EXPECT_STRNE(str1.c_str(), str2.c_str());
 }
+class ParamTest : public ::testing::TestWithParam<int> {         // Tests that the value of the parameter is greater than 1.
+protected:
+    ParamTest() = default;
+    ~ParamTest() = default;
+
+    void SetUp() override {
+        // Code here will be called immediately after the constructor (right
+        // before each test).
+
+    }
+
+    void TearDown() override {
+
+    }
+};
+
+TEST_P(ParamTest, SimpleTest) {                                 
+    int i_test = GetParam();
+    std::cout << "Param value:: " << i_test << std::endl;
+    EXPECT_GT(i_test, 1);
+}
+
+INSTANTIATE_TEST_SUITE_P(                                       // Instantiates the test suite with a list of values.
+    Simple,
+    ParamTest, ::testing::Values(2, 3, 4, 5)
+);
 
 int main(int argc, char** argv) {                               // Initializes GoogleTest and runs all tests.
     testing::InitGoogleTest(&argc, argv); 
