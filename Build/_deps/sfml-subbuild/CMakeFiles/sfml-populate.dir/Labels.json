@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/sfml-populate"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/c8fe09150db4d81ec6fa87619bd870b2/sfml-populate.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/c69fb02cba9444eed658cbc7a87b6f68/sfml-populate-complete.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-build.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-configure.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-download.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-install.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-mkdir.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-patch.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-test.rule"
+		},
+		{
+			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"sfml-populate"
+		],
+		"name" : "sfml-populate"
+	}
+}

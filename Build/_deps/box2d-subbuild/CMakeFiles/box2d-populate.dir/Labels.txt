@@ -1,0 +1,14 @@
+# Target labels
+ box2d-populate
+# Source files and their labels
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/box2d-populate
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/9d92c3be48169b752738b779b50e6d02/box2d-populate.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/eb62f32ced63bec145d8cc9b9b7a4f08/box2d-populate-complete.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/56082990fa0d2458c1d42d09d49544b4/box2d-populate-build.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/56082990fa0d2458c1d42d09d49544b4/box2d-populate-configure.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/56082990fa0d2458c1d42d09d49544b4/box2d-populate-download.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/56082990fa0d2458c1d42d09d49544b4/box2d-populate-install.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/56082990fa0d2458c1d42d09d49544b4/box2d-populate-mkdir.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/56082990fa0d2458c1d42d09d49544b4/box2d-populate-patch.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/56082990fa0d2458c1d42d09d49544b4/box2d-populate-test.rule
+H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/box2d-subbuild/CMakeFiles/56082990fa0d2458c1d42d09d49544b4/box2d-populate-update.rule

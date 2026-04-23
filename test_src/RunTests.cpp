@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include "Enemy.h"
+#include "Slingshot.h"
+
 
 /// <summary>
 ///Taken from the GoogleTest primer. 
@@ -41,16 +43,26 @@ protected:
 };
 
 //A single test, not a fixture. No setup is called.
-TEST(Enemy, First_test) {
+TEST(Enemy, First_test) {                            // Tests that health is initialized correctly.
     Enemy e(100);
-    EXPECT_GT(e.getHealth(), 100);
-    SUCCEED() << "Test test passed";
-    FAIL() << "Test didn't pass";
+    EXPECT_EQ(e.getHealth(), 100);  
 }
+// SUCCEED() << "Test test passed";
+// FAIL() << "Test didn't pass";
 
-TEST_F(EnemyTest, LethalDamagePopsPig) {
+TEST_F(EnemyTest, LethalDamagePopsPig) {             // Tests that lethal damage pops the pig.
     enemy->takeDamage(60);
     EXPECT_TRUE(enemy->checkIfPopped());
+}
+
+TEST_F(EnemyTest, NonLethalDamageDoesntPopPig) {    // Tests that non-lethal damage doesn't pop the pig.
+    enemy->takeDamage(30);
+    EXPECT_FALSE(enemy->checkIfPopped());
+}
+
+TEST_F(EnemyTest, NegDamageDoesntPopPig) {          // Tests that negative damage doesn't pop the pig.
+	enemy->takeDamage(-10);
+	EXPECT_FALSE(enemy->checkIfPopped());
 }
 
 int main(int argc, char** argv) {
