@@ -64,6 +64,8 @@ TEST_F(EnemyTest, NegDamageDoesntPopPig) {                      // Tests that ne
 	enemy->takeDamage(-10);
 	EXPECT_FALSE(enemy->checkIfPopped());
 }
+
+// Health Reduction tests.
 TEST_F(EnemyTest, NonLethalDamageReducesHealth) {               // Tests that non-lethal damage reduces the pig's health.
 	enemy->takeDamage(20);
 	EXPECT_NE(enemy->getHealth(), 50);
@@ -79,6 +81,7 @@ TEST_F(EnemyTest, NonLethalDamageDoesntZeroHealth) {            // Tests that no
     EXPECT_GT(enemy->getHealth(), 0);
 }
 
+// Assert tests.
 TEST_F(EnemyTest, Assert_LethalDamagePopsPig) {                 // Tests that lethal damage pops the pig, using ASSERT_TRUE.
     enemy->takeDamage(60);
     ASSERT_TRUE(enemy->checkIfPopped());
@@ -88,7 +91,8 @@ TEST_F(EnemyTest, Assert_LethalDamageZerosHealth) {             // Tests that le
     enemy->takeDamage(60);
     ASSERT_LE(enemy->getHealth(), 0);  // getHealth() <= 0
 }
-
+ 
+// String tests.
 TEST_F(EnemyTest, StringsIgnoreCase) {                          // Tests that two strings are equal, ignoring case.
     std::string str1 = "Pig";
     std::string str2 = "pig";
