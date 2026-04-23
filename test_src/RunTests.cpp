@@ -43,29 +43,47 @@ protected:
 };
 
 //A single test, not a fixture. No setup is called.
-TEST(Enemy, First_test) {                            // Tests that health is initialized correctly.
+TEST(Enemy, First_test) {                                      // Tests that health is initialized correctly.
     Enemy e(100);
     EXPECT_EQ(e.getHealth(), 100);  
 }
 // SUCCEED() << "Test test passed";
 // FAIL() << "Test didn't pass";
 
-TEST_F(EnemyTest, LethalDamagePopsPig) {             // Tests that lethal damage pops the pig.
+TEST_F(EnemyTest, LethalDamagePopsPig) {                        // Tests that lethal damage pops the pig.
     enemy->takeDamage(60);
     EXPECT_TRUE(enemy->checkIfPopped());
 }
 
-TEST_F(EnemyTest, NonLethalDamageDoesntPopPig) {    // Tests that non-lethal damage doesn't pop the pig.
+TEST_F(EnemyTest, NonLethalDamageDoesntPopPig) {                // Tests that non-lethal damage doesn't pop the pig.
     enemy->takeDamage(30);
     EXPECT_FALSE(enemy->checkIfPopped());
 }
-
-TEST_F(EnemyTest, NegDamageDoesntPopPig) {          // Tests that negative damage doesn't pop the pig.
+    
+TEST_F(EnemyTest, NegDamageDoesntPopPig) {                      // Tests that negative damage doesn't pop the pig.
 	enemy->takeDamage(-10);
 	EXPECT_FALSE(enemy->checkIfPopped());
 }
+TEST_F(EnemyTest, NonLethalDamageReducesHealth) {               // Tests that non-lethal damage reduces the pig's health.
+	enemy->takeDamage(20);
+	EXPECT_NE(enemy->getHealth(), 50);
+}
 
-int main(int argc, char** argv) {
-    testing::InitGoogleTest(&argc, argv);
+TEST_F(EnemyTest, DamageReducesHealth) {                        // Tests that damage reduces the pig's health.
+    enemy->takeDamage(20);
+    EXPECT_EQ(enemy->getHealth(), 30);
+}
+
+TEST_F(EnemyTest, NonLethalDamageDoesntReduceHealthToZero) {    // Tests that non-lethal damage doesn't reduce the pig's health to zero.
+    enemy->takeDamage(20);
+    EXPECT_GT(enemy->getHealth(), 0);
+}
+
+TEST_F(EnemyTest, Assert_LethalDamagePopsPig) {                 // Tests that lethal damage pops the pig, using ASSERT_TRUE.
+    enemy->takeDamage(60);
+    ASSERT_TRUE(enemy->checkIfPopped());
+}
+int main(int argc, char** argv) {                               // Initializes GoogleTest and runs all tests.
+    testing::InitGoogleTest(&argc, argv); 
     return RUN_ALL_TESTS();
 }
