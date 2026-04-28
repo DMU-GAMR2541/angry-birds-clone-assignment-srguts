@@ -8,19 +8,32 @@ int main() {
     window.setFramerateLimit(90);
 
     // Setup the SFML variables. 
-    sf::Sprite sp_rendered;  // the sprite to be rendered of the dynamic object
-    sf::Texture sf_tex;      // the texture that will be used to render the dynamic object
-    
+    sf::Sprite sp_rendered;     // the sprite to be rendered of the dynamic object
+    sf::Texture sf_tex;         // the texture that will be used to render the dynamic object
+    sf::Sprite sp_pig;          // the sprite for the pig
+	sf::Sprite sp_cursor;        // the sprite for the cursor 
+
     if (!sf_tex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/RedBirdNoBG.png")) {
         std::cout << "Failed to load texture" << std::endl;
-    } 
+    }
+
+    // load pig texture
+    sf::Texture sf_pigTex;
+    if (!sf_pigTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/PigNoBG.png")) {
+        std::cout << "Failed to load texture" << std::endl;
+    }
 
     // Assign texture to sprite
     sp_rendered.setTexture(sf_tex);
 
     // Set origin to centre so it rotates correctly around its middle 
     sp_rendered.setOrigin(sf_tex.getSize().x / 2.0f, sf_tex.getSize().y / 2.0f);
-	sp_rendered.setScale(0.35f, 0.35f);                                              // Scale down the sprite to fit
+    sp_rendered.setScale(0.35f, 0.35f);                                              // Scale down the sprite to fit
+
+    // Assign texture to pig sprite
+    sp_pig.setTexture(sf_pigTex);
+    sp_pig.setOrigin(sf_pigTex.getSize().x / 2.0f, sf_pigTex.getSize().y / 2.0f);
+    sp_pig.setScale(0.031f, 0.031f);
 
     // Box2D works in meters. SFML works in pixels.
     const float SCALE = 30.0f;
@@ -63,7 +76,7 @@ int main() {
     // Dynamic plank body.
     b2BodyDef b2_plankDef;
     b2_plankDef.type = b2_dynamicBody;
-    b2_plankDef.position.Set(550.0f / SCALE, 450.0f / SCALE);
+    b2_plankDef.position.Set(550.0f / SCALE, 550.0f / SCALE);
     b2Body* b2_plankBody = world.CreateBody(&b2_plankDef);
 
     b2PolygonShape b2_plankBox;
@@ -86,13 +99,30 @@ int main() {
     b2Body* b2_ballBody = world.CreateBody(&b2_ballDef);
 
     b2CircleShape b2_circleShape;
-    b2_circleShape.m_radius = 15.0f / SCALE;
+    b2_circleShape.m_radius = 20.0f / SCALE;
 
     b2FixtureDef b2_ballFixture;
     b2_ballFixture.shape = &b2_circleShape;
     b2_ballFixture.density = 1.0f;
     b2_ballFixture.restitution = 0.5f; // Bounciness
     b2_ballBody->CreateFixture(&b2_ballFixture);
+
+    // Create a pig that sits on the plank.
+    b2BodyDef b2_pigDef;
+    b2_pigDef.type = b2_dynamicBody;
+    
+    // position the pig to the right of the plank, so it will be hit by the ball after it hits the plank.
+    b2_pigDef.position.Set(595.0f / SCALE, 550.0f / SCALE);
+    b2Body* b2_pigBody = world.CreateBody(&b2_pigDef);
+
+    b2CircleShape b2_pigShape;
+    b2_pigShape.m_radius = 27.0f / SCALE;
+
+    b2FixtureDef b2_pigFixture;
+    b2_pigFixture.shape = &b2_pigShape; // Reuse the same shape as the ball for simplicity.
+    b2_pigFixture.density = 0.8f; // Slightly less dense than the ball
+    b2_pigFixture.restitution = 0.3f; // Less bouncy than the ball
+    b2_pigBody->CreateFixture(&b2_pigFixture);
 
     sf::CircleShape sf_ballVisual(15.0f);
     sf_ballVisual.setOrigin(15.0f, 15.0f);
@@ -114,7 +144,7 @@ int main() {
                     b2_ballBody->SetAngularVelocity(0);
 
                     // Apply impulse. Negative Y is UP in Box2D because gravity is positive.
-                    b2_ballBody->ApplyLinearImpulse(b2Vec2(5.0f, -5.0f), b2_ballBody->GetWorldCenter(), true);
+                    b2_ballBody->ApplyLinearImpulse(b2Vec2(12.0f, -12.0f), b2_ballBody->GetWorldCenter(), true);
 
                     std::cout << "Firing!!!!" << std::endl;
                 }
@@ -128,8 +158,13 @@ int main() {
         sf_ballVisual.setPosition(b2_ballBody->GetPosition().x * SCALE, b2_ballBody->GetPosition().y * SCALE);
         sf_ballVisual.setRotation(b2_ballBody->GetAngle() * (180.0f / PI));
 
+        // The sprite should follow the ball's position and rotation.
         sp_rendered.setPosition(b2_ballBody->GetPosition().x * SCALE, b2_ballBody->GetPosition().y * SCALE);
         sp_rendered.setRotation(b2_ballBody->GetAngle() * (180.0f / PI));
+
+        // The pig follows its physics body
+        sp_pig.setPosition(b2_pigBody->GetPosition().x * SCALE, b2_pigBody->GetPosition().y * SCALE);
+        sp_pig.setRotation(b2_pigBody->GetAngle() * (180.0f / PI));
 
         // Static objects usually don't move, but we set position each frame for consistency.
         sf_groundVisual.setPosition(b2_groundBody->GetPosition().x * SCALE, b2_groundBody->GetPosition().y * SCALE);
@@ -147,6 +182,7 @@ int main() {
         window.draw(sf_plankVisual);
         window.draw(sf_ballVisual);
         window.draw(sp_rendered);
+        window.draw(sp_pig);
 
         window.display();
     }
