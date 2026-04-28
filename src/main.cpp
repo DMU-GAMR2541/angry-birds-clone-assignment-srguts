@@ -13,6 +13,7 @@ int main() {
     sf::Sprite sp_pig;          // the sprite for the pig
 	sf::Sprite sp_cursor;        // the sprite for the cursor 
 
+	// load texture for the bird
     if (!sf_tex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/RedBirdNoBG.png")) {
         std::cout << "Failed to load texture" << std::endl;
     }
@@ -20,6 +21,12 @@ int main() {
     // load pig texture
     sf::Texture sf_pigTex;
     if (!sf_pigTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/PigNoBG.png")) {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+
+	// load cursor texture
+    sf::Texture sf_cursorTex;
+    if (!sf_cursorTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/cursor.png")) {
         std::cout << "Failed to load texture" << std::endl;
     }
 
@@ -34,6 +41,11 @@ int main() {
     sp_pig.setTexture(sf_pigTex);
     sp_pig.setOrigin(sf_pigTex.getSize().x / 2.0f, sf_pigTex.getSize().y / 2.0f);
     sp_pig.setScale(0.031f, 0.031f);
+
+	// Assign texture to cursor sprite
+	sp_cursor.setTexture(sf_cursorTex);
+	sp_cursor.setOrigin(sf_cursorTex.getSize().x / 2.0f, sf_cursorTex.getSize().y / 2.0f);
+	sp_cursor.setScale(0.0199f, 0.0199f);
 
     // Box2D works in meters. SFML works in pixels.
     const float SCALE = 30.0f;
@@ -65,13 +77,21 @@ int main() {
     b2_wallDef.position.Set(750.0f / SCALE, 500.0f / SCALE);
     b2Body* b2_wallBody = world.CreateBody(&b2_wallDef);
 
+	// Define a box shape for the wall.
     b2PolygonShape b2_wallBox;
     b2_wallBox.SetAsBox(10.0f / SCALE, 80.0f / SCALE);
     b2_wallBody->CreateFixture(&b2_wallBox, 0.0f);
 
+	// Set up the wall visuals
     sf::RectangleShape sf_wallVisual(sf::Vector2f(20.0f, 160.0f));
     sf_wallVisual.setOrigin(10.0f, 80.0f);
     sf_wallVisual.setFillColor(sf::Color::Red);
+
+	// Define a shape for the cursor similar to the wall, but it will be kinematic and follow the mouse position.
+	b2BodyDef b2_cursorDef;
+	b2_cursorDef.type = b2_kinematicBody; // Kinematic bodies are not affected by forces but can be moved manually.
+	b2_cursorDef.position.Set(0.0f, 0.0f); // Start at the top-left corner.
+	b2Body* b2_cursorBody = world.CreateBody(&b2_cursorDef);
 
     // Dynamic plank body.
     b2BodyDef b2_plankDef;
@@ -79,15 +99,18 @@ int main() {
     b2_plankDef.position.Set(550.0f / SCALE, 550.0f / SCALE);
     b2Body* b2_plankBody = world.CreateBody(&b2_plankDef);
 
+	// Define a box shape for the plank.
     b2PolygonShape b2_plankBox;
     b2_plankBox.SetAsBox(10.0f / SCALE, 60.0f / SCALE);
 
+	// Define a fixture 
     b2FixtureDef b2_plankFixture;
     b2_plankFixture.shape = &b2_plankBox;
     b2_plankFixture.density = 1.5f;   // Light wood
     b2_plankFixture.friction = 0.3f;
     b2_plankBody->CreateFixture(&b2_plankFixture);
 
+	// Set up the plank visuals
     sf::RectangleShape sf_plankVisual(sf::Vector2f(20.0f, 120.0f));
     sf_plankVisual.setOrigin(10.0f, 60.0f);
     sf_plankVisual.setFillColor(sf::Color(139, 69, 19)); // Brown
@@ -98,9 +121,11 @@ int main() {
     b2_ballDef.position.Set(100.0f / SCALE, 500.0f / SCALE);
     b2Body* b2_ballBody = world.CreateBody(&b2_ballDef);
 
+	// Define a circle shape for the ball.
     b2CircleShape b2_circleShape;
     b2_circleShape.m_radius = 20.0f / SCALE;
 
+	// Define a fixture for the ball 
     b2FixtureDef b2_ballFixture;
     b2_ballFixture.shape = &b2_circleShape;
     b2_ballFixture.density = 1.0f;
@@ -174,15 +199,24 @@ int main() {
         sf_plankVisual.setPosition(b2_plankBody->GetPosition().x * SCALE, b2_plankBody->GetPosition().y * SCALE);
         sf_plankVisual.setRotation(b2_plankBody->GetAngle() * (180.0f / PI));
 
+		// Cursor follows the mouse position.
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+		sp_cursor.setPosition(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+		b2_cursorBody->SetTransform(b2Vec2(mousePos.x / SCALE, mousePos.y / SCALE), 0);
+
         // Render all content. Clear first to avoid artefacts.
         window.clear(sf::Color(135, 206, 235)); // Sky Blue
 
+		// Draw all the visuals
         window.draw(sf_groundVisual);
         window.draw(sf_wallVisual);
         window.draw(sf_plankVisual);
         window.draw(sf_ballVisual);
         window.draw(sp_rendered);
         window.draw(sp_pig);
+        window.draw(sp_cursor);
+
+		window.setMouseCursorVisible(false);             // Hide the default mouse cursor
 
         window.display();
     }
