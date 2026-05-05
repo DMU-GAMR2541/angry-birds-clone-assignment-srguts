@@ -1,6 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <box2d/box2d.h>
+#include "Bird.h"
+#include <list>
 #include <iostream>
+#include <vector>
 
 int main() {
     // --- 1. WINDOW SETUP ---
@@ -8,15 +11,9 @@ int main() {
     window.setFramerateLimit(90);
 
     // Setup the SFML variables. 
-    sf::Sprite sp_rendered;     // the sprite to be rendered of the dynamic object
     sf::Texture sf_tex;         // the texture that will be used to render the dynamic object
     sf::Sprite sp_pig;          // the sprite for the pig
 	sf::Sprite sp_cursor;        // the sprite for the cursor 
-
-	// load texture for the bird
-    if (!sf_tex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/RedBirdNoBG.png")) {
-        std::cout << "Failed to load texture" << std::endl;
-    }
 
     // load pig texture
     sf::Texture sf_pigTex;
@@ -29,14 +26,7 @@ int main() {
     if (!sf_cursorTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/cursor.png")) {
         std::cout << "Failed to load texture" << std::endl;
     }
-
-    // Assign texture to sprite
-    sp_rendered.setTexture(sf_tex);
-
-    // Set origin to centre so it rotates correctly around its middle 
-    sp_rendered.setOrigin(sf_tex.getSize().x / 2.0f, sf_tex.getSize().y / 2.0f);
-    sp_rendered.setScale(0.35f, 0.35f);                                              // Scale down the sprite to fit
-
+          
     // Assign texture to pig sprite
     sp_pig.setTexture(sf_pigTex);
     sp_pig.setOrigin(sf_pigTex.getSize().x / 2.0f, sf_pigTex.getSize().y / 2.0f);
@@ -153,6 +143,15 @@ int main() {
     sf_ballVisual.setOrigin(15.0f, 15.0f);
     sf_ballVisual.setFillColor(sf::Color::Yellow);
 
+    std:: vector<std::shared_ptr<Bird>> birds;
+    for (int i = 0; i < 3; i++) {
+        std::shared_ptr<Bird> bird1 = std::make_shared<Bird>("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/RedBirdNoBG.png", b2Vec2((100.0f + i * 40.0f) / SCALE, 500.0f / SCALE), world);
+		birds.push_back(bird1);
+    }
+
+	// Bird bird1("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/RedBirdNoBG.png", b2Vec2((100.0f + 3 * 40.0f) / SCALE, 500.0f / SCALE), world);
+
+    // "H:\Downloads\angry-birds-clone-assignment-srguts\assets\Ang_Birds\RedBirdNoBG.png"
     // --- MAIN LOOP ---
     while (window.isOpen()) {
         sf::Event event;
@@ -179,13 +178,13 @@ int main() {
         // Update Physics
         world.Step(1.0f / 60.0f, 8, 3);
 
+        for (std::shared_ptr<Bird>& bird : birds) {
+            bird->update();
+        }
+
         // Sync all visuals with physics bodies each frame.
         sf_ballVisual.setPosition(b2_ballBody->GetPosition().x * SCALE, b2_ballBody->GetPosition().y * SCALE);
         sf_ballVisual.setRotation(b2_ballBody->GetAngle() * (180.0f / PI));
-
-        // The sprite should follow the ball's position and rotation.
-        sp_rendered.setPosition(b2_ballBody->GetPosition().x * SCALE, b2_ballBody->GetPosition().y * SCALE);
-        sp_rendered.setRotation(b2_ballBody->GetAngle() * (180.0f / PI));
 
         // The pig follows its physics body
         sp_pig.setPosition(b2_pigBody->GetPosition().x * SCALE, b2_pigBody->GetPosition().y * SCALE);
@@ -207,12 +206,16 @@ int main() {
         // Render all content. Clear first to avoid artefacts.
         window.clear(sf::Color(135, 206, 235)); // Sky Blue
 
+        for (std::shared_ptr<Bird>& bird : birds) {
+            bird->draw(window);
+        }
+		// bird1.draw(window);
+
 		// Draw all the visuals
         window.draw(sf_groundVisual);
         window.draw(sf_wallVisual);
         window.draw(sf_plankVisual);
         window.draw(sf_ballVisual);
-        window.draw(sp_rendered);
         window.draw(sp_pig);
         window.draw(sp_cursor);
 
