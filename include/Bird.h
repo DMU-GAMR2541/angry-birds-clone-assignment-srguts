@@ -4,9 +4,10 @@
 #include <string>
 
 // bird class 
-class Bird {                                           
+class Bird {
 public:
 	Bird(const std::string& texturePath, b2Vec2 position, b2World& world);
+	b2Body* getBody() { return b2_body; }
 	void update();
 	void draw(sf::RenderWindow& window);
 
@@ -15,6 +16,7 @@ private:
 	sf::Texture sf_tex;
 	b2Body* b2_body;
 	b2CircleShape b2_circleShape;
+	
 
 	// constants 
 	const float SCALE = 30.0f;
