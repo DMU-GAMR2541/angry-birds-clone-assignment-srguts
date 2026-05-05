@@ -43,7 +43,7 @@ file(GLOB_RECURSE HEADERS "include/*.h")
 
 # --- Main Project ---
 # Combined the main project executable with globbed files 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} "include/Bird.h")
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} "include/Bird.h" "src/Bird.cpp")
 #add_executable(${PROJECT_NAME} "../src/main.cpp" )
 
 # Ensure the compiler can find headers in the 'include' directory
@@ -68,7 +68,7 @@ set(MAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
 # Remove it specifically from the test source list
 list(REMOVE_ITEM SOURCES "${MAIN_FILE}")
 
-add_executable(RunUnitTests ${HEADERS} ${SOURCES} "test_src/RunTests.cpp" "include/Bird.h")
+add_executable(RunUnitTests ${HEADERS} ${SOURCES} "test_src/RunTests.cpp" "include/Bird.h" "src/Bird.cpp")
 target_include_directories(RunUnitTests PUBLIC include)
 target_link_libraries(RunUnitTests 
     gtest 
