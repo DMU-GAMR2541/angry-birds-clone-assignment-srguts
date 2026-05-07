@@ -1,3 +1,0 @@
-/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate.dir
-/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/CMakeFiles/edit_cache.dir
-/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/CMakeFiles/rebuild_cache.dir
