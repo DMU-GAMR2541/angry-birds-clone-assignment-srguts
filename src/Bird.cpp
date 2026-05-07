@@ -1,7 +1,7 @@
 #include "Bird.h"
 #include <iostream>
 
-Bird::Bird(const std::string& texturePath, b2Vec2 position, b2World& world) {
+Bird::Bird(const std::string& texturePath, b2Vec2 position, b2World& world, float density, float restitution) {
 	// setup texture sprite and body here
 	if (!sf_tex.loadFromFile(texturePath)) {
 		std::cout << "Failed to load texture" << std::endl;
@@ -27,8 +27,8 @@ Bird::Bird(const std::string& texturePath, b2Vec2 position, b2World& world) {
 	// Define a fixture for the bird 
 	b2FixtureDef b2_ballFixture;
 	b2_ballFixture.shape = &b2_circleShape;
-	b2_ballFixture.density = 1.0f;
-	b2_ballFixture.restitution = 0.5f; // Bounciness
+	b2_ballFixture.density = density;
+	b2_ballFixture.restitution = restitution; // Bounciness
 	b2_ballFixture.friction = 0.3f; // Added friction for better behaviour
 	b2_body->CreateFixture(&b2_ballFixture);
 }

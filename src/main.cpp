@@ -4,6 +4,11 @@
 #include <list>
 #include <iostream>
 #include <vector>
+#include "RedBird.h"
+#include "BlackBird.h"
+#include "YellowBird.h"
+#include "Pig.h"
+#include <list>
 
 int main() {
     // --- 1. WINDOW SETUP ---
@@ -122,7 +127,7 @@ int main() {
 
     std::vector<std::shared_ptr<Bird>> birds;
     for (int i = 0; i < 3; i++) {
-        std::shared_ptr<Bird> bird1 = std::make_shared<Bird>("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/RedBirdNoBG.png", b2Vec2((100.0f + i * 40.0f) / SCALE, 500.0f / SCALE), world);
+        std::shared_ptr<Bird> bird1 = std::make_shared<Bird>("../assets/Ang_Birds/RedBirdNoBG.png", b2Vec2((100.0f + i * 40.0f) / SCALE, 500.0f / SCALE), world);
         birds.push_back(bird1);
     }
 
