@@ -1,14 +1,14 @@
 # Target labels
  sfml-populate
 # Source files and their labels
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/sfml-populate
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/c8fe09150db4d81ec6fa87619bd870b2/sfml-populate.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/c69fb02cba9444eed658cbc7a87b6f68/sfml-populate-complete.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-build.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-configure.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-download.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-install.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-mkdir.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-patch.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-test.rule
-H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/CMakeFiles/7c474a55e7b67ce2cc7c644d40cbf683/sfml-populate-update.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test.rule
+/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update.rule

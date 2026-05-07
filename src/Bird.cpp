@@ -1,5 +1,6 @@
 #include "Bird.h"
 #include <iostream>
+#include <algorithm>
 
 Bird::Bird(const std::string& texturePath, b2Vec2 position, b2World& world, float density, float restitution) {
 	// setup texture sprite and body here
@@ -10,7 +11,7 @@ Bird::Bird(const std::string& texturePath, b2Vec2 position, b2World& world, floa
 	// --- SETUP SPRITE ---
 	sp_rendered.setTexture(sf_tex);
 	sp_rendered.setOrigin(sf_tex.getSize().x / 2.0f, sf_tex.getSize().y / 2.0f);
-	sp_rendered.setScale(0.35f, 0.35f);
+	// Scale is set by subclass constructors
 	std::cout << sf_tex.getSize().x << " " << sf_tex.getSize().y << std::endl;
 	std::cout << sp_rendered.getLocalBounds().getSize().x << " " << sp_rendered.getLocalBounds().getSize().y << std::endl;
 
@@ -21,8 +22,7 @@ Bird::Bird(const std::string& texturePath, b2Vec2 position, b2World& world, floa
 	b2_body = world.CreateBody(&b2_bodyDef);
 
 	// Define a circle shape for the bird (FIXED: radius must be set)
-	float radiusPixels = (sf_tex.getSize().x * 0.35f) / 2.0f;
-	b2_circleShape.m_radius = radiusPixels / SCALE;
+	b2_circleShape.m_radius = 15.0f / SCALE;
 
 	// Define a fixture for the bird 
 	b2FixtureDef b2_ballFixture;

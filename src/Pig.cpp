@@ -3,13 +3,13 @@
 
 Pig::Pig(b2Vec2 position, b2World& world) {
     // load texture
-    if (!sf_tex.loadFromFile("../assets/Ang_Birds/PigNoBG.png")) {
+    if (!sf_tex.loadFromFile("../assets/Ang_Birds/Pig.png")) {
         std::cout << "Failed to load texture" << std::endl;
     }
     // setup sprite
     sp_rendered.setTexture(sf_tex);
     sp_rendered.setOrigin(sf_tex.getSize().x / 2.0f, sf_tex.getSize().y / 2.0f);
-    sp_rendered.setScale(0.3f, 0.3f);
+    sp_rendered.setScale(0.7f, 0.7f);
     // setup physics body
     b2BodyDef b2_bodyDef;
     b2_bodyDef.type = b2_dynamicBody;
@@ -24,6 +24,11 @@ Pig::Pig(b2Vec2 position, b2World& world) {
     b2_pigFixture.restitution = 0.2f;
     b2_pigFixture.friction = 0.5f;
     b2_body->CreateFixture(&b2_pigFixture);
+}
+if (!sf_tex.loadFromFile("../assets/Ang_Birds/Pig.png")) {
+    std::cout << "Failed to load texture" << std::endl;
+} else {
+    std::cout << "Pig texture loaded: " << sf_tex.getSize().x << " " << sf_tex.getSize().y << std::endl;
 }
 
 void Pig::update() {

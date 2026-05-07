@@ -2,37 +2,37 @@
 	"sources" : 
 	[
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/986c2650cca7dd58053d6aff8af9a059/googletest-populate.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/496b71fa4fbe53db2e476c7726d3077c/googletest-populate-complete.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate-complete.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/073b48b14ca1f2f2f5286b410a2a2339/googletest-populate-build.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/073b48b14ca1f2f2f5286b410a2a2339/googletest-populate-configure.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/073b48b14ca1f2f2f5286b410a2a2339/googletest-populate-download.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/073b48b14ca1f2f2f5286b410a2a2339/googletest-populate-install.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/073b48b14ca1f2f2f5286b410a2a2339/googletest-populate-mkdir.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/073b48b14ca1f2f2f5286b410a2a2339/googletest-populate-patch.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/073b48b14ca1f2f2f5286b410a2a2339/googletest-populate-test.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test.rule"
 		},
 		{
-			"file" : "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/googletest-subbuild/CMakeFiles/073b48b14ca1f2f2f5286b410a2a2339/googletest-populate-update.rule"
+			"file" : "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update.rule"
 		}
 	],
 	"target" : 

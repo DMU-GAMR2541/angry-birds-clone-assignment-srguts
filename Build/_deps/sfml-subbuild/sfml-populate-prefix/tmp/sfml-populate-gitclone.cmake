@@ -1,13 +1,13 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
-# file Copyright.txt or https://cmake.org/licensing for details.
+# file LICENSE.rst or https://cmake.org/licensing for details.
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
-if(EXISTS "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt" AND EXISTS "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt" AND
-  "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt" IS_NEWER_THAN "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt")
+if(EXISTS "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt" AND EXISTS "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt" AND
+  "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt" IS_NEWER_THAN "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt")
   message(VERBOSE
     "Avoiding repeated git clone, stamp file is up to date: "
-    "'H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt'"
+    "'/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt'"
   )
   return()
 endif()
@@ -22,12 +22,12 @@ else()
 endif()
 
 execute_process(
-  COMMAND ${CMAKE_COMMAND} -E rm -rf "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-src"
+  COMMAND ${CMAKE_COMMAND} -E rm -rf "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-src"
   RESULT_VARIABLE error_code
   ${maybe_show_command}
 )
 if(error_code)
-  message(FATAL_ERROR "Failed to remove directory: 'H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-src'")
+  message(FATAL_ERROR "Failed to remove directory: '/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-src'")
 endif()
 
 # try the clone 3 times in case there is an odd git clone issue
@@ -35,9 +35,9 @@ set(error_code 1)
 set(number_of_tries 0)
 while(error_code AND number_of_tries LESS 3)
   execute_process(
-    COMMAND "C:/Program Files/Git/cmd/git.exe"
+    COMMAND "/opt/homebrew/bin/git"
             clone --no-checkout --config "advice.detachedHead=false" "https://github.com/SFML/SFML.git" "sfml-src"
-    WORKING_DIRECTORY "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps"
+    WORKING_DIRECTORY "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps"
     RESULT_VARIABLE error_code
     ${maybe_show_command}
   )
@@ -51,9 +51,9 @@ if(error_code)
 endif()
 
 execute_process(
-  COMMAND "C:/Program Files/Git/cmd/git.exe"
+  COMMAND "/opt/homebrew/bin/git"
           checkout "2.6.x" --
-  WORKING_DIRECTORY "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-src"
+  WORKING_DIRECTORY "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-src"
   RESULT_VARIABLE error_code
   ${maybe_show_command}
 )
@@ -64,24 +64,24 @@ endif()
 set(init_submodules TRUE)
 if(init_submodules)
   execute_process(
-    COMMAND "C:/Program Files/Git/cmd/git.exe" 
+    COMMAND "/opt/homebrew/bin/git" 
             submodule update --recursive --init 
-    WORKING_DIRECTORY "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-src"
+    WORKING_DIRECTORY "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-src"
     RESULT_VARIABLE error_code
     ${maybe_show_command}
   )
 endif()
 if(error_code)
-  message(FATAL_ERROR "Failed to update submodules in: 'H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-src'")
+  message(FATAL_ERROR "Failed to update submodules in: '/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-src'")
 endif()
 
 # Complete success, update the script-last-run stamp file:
 #
 execute_process(
-  COMMAND ${CMAKE_COMMAND} -E copy "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt" "H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt"
+  COMMAND ${CMAKE_COMMAND} -E copy "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt" "/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt"
   RESULT_VARIABLE error_code
   ${maybe_show_command}
 )
 if(error_code)
-  message(FATAL_ERROR "Failed to copy script-last-run stamp file: 'H:/Downloads/angry-birds-clone-assignment-srguts/Build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt'")
+  message(FATAL_ERROR "Failed to copy script-last-run stamp file: '/Volumes/The Library/angry-birds-clone-assignment-srguts/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt'")
 endif()

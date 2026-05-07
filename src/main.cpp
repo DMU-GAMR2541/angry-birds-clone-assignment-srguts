@@ -8,7 +8,6 @@
 #include "BlackBird.h"
 #include "YellowBird.h"
 #include "Pig.h"
-#include <list>
 
 int main() {
     // --- 1. WINDOW SETUP ---
@@ -16,26 +15,13 @@ int main() {
     window.setFramerateLimit(90);
 
     // Setup the SFML variables. 
-    sf::Texture sf_tex;          // the texture that will be used to render the dynamic object
-    sf::Sprite sp_pig;          // the sprite for the pig
     sf::Sprite sp_cursor;       // the sprite for the cursor 
-
-    // load pig texture
-    sf::Texture sf_pigTex;
-    if (!sf_pigTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/PigNoBG.png")) {
-        std::cout << "Failed to load texture" << std::endl;
-    }
 
     // load cursor texture
     sf::Texture sf_cursorTex;
-    if (!sf_cursorTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/cursor.png")) {
+    if (!sf_cursorTex.loadFromFile("../assets/Ang_Birds/cursor.png")) {
         std::cout << "Failed to load texture" << std::endl;
     }
-
-    // Assign texture to pig sprite
-    sp_pig.setTexture(sf_pigTex);
-    sp_pig.setOrigin(sf_pigTex.getSize().x / 2.0f, sf_pigTex.getSize().y / 2.0f);
-    sp_pig.setScale(0.031f, 0.031f);
 
     // Assign texture to cursor sprite
     sp_cursor.setTexture(sf_cursorTex);
@@ -110,26 +96,15 @@ int main() {
     sf_plankVisual.setOrigin(10.0f, 60.0f);
     sf_plankVisual.setFillColor(sf::Color(139, 69, 19)); // Brown
 
-    // Create a pig that sits on the plank.
-    b2BodyDef b2_pigDef;
-    b2_pigDef.type = b2_dynamicBody;
-    b2_pigDef.position.Set(595.0f / SCALE, 550.0f / SCALE);
-    b2Body* b2_pigBody = world.CreateBody(&b2_pigDef);
+    // Bird List
+    std::list<std::shared_ptr<Bird>> birds;
+    birds.push_back(std::make_shared<RedBird>(b2Vec2(100.0f / SCALE, 500.0f / SCALE), world));
+    birds.push_back(std::make_shared<YellowBird>(b2Vec2(60.0f / SCALE, 500.0f / SCALE), world));
+    birds.push_back(std::make_shared<BlackBird>(b2Vec2(20.0f / SCALE, 500.0f / SCALE), world));
 
-    b2CircleShape b2_pigShape;
-    b2_pigShape.m_radius = 27.0f / SCALE;
-
-    b2FixtureDef b2_pigFixture;
-    b2_pigFixture.shape = &b2_pigShape;
-    b2_pigFixture.density = 0.8f;
-    b2_pigFixture.restitution = 0.3f;
-    b2_pigBody->CreateFixture(&b2_pigFixture);
-
-    std::vector<std::shared_ptr<Bird>> birds;
-    for (int i = 0; i < 3; i++) {
-        std::shared_ptr<Bird> bird1 = std::make_shared<Bird>("../assets/Ang_Birds/RedBirdNoBG.png", b2Vec2((100.0f + i * 40.0f) / SCALE, 500.0f / SCALE), world);
-        birds.push_back(bird1);
-    }
+    // Pig List
+    std::list<Pig> pigs;
+    pigs.push_back(Pig(b2Vec2(595.0f / SCALE, 550.0f / SCALE), world));
 
     // --- MAIN LOOP ---
     while (window.isOpen()) {
@@ -141,7 +116,7 @@ int main() {
             // INPUT HANDLING: Press SPACE to launch (Controlled by first bird in list)
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Space && !birds.empty()) {
-                    b2Body* body = birds[0]->getBody();
+                    b2Body* body = birds.front()->getBody();
                     body->SetTransform(b2Vec2(100.0f / SCALE, 500.0f / SCALE), 0);
                     body->SetLinearVelocity(b2Vec2(0, 0));
                     body->SetAngularVelocity(0);
@@ -159,10 +134,9 @@ int main() {
         for (std::shared_ptr<Bird>& bird : birds) {
             bird->update();
         }
-
-        // The pig follows its physics body
-        sp_pig.setPosition(b2_pigBody->GetPosition().x * SCALE, b2_pigBody->GetPosition().y * SCALE);
-        sp_pig.setRotation(b2_pigBody->GetAngle() * (180.0f / PI));
+        for (Pig& pig : pigs) {
+            pig.update();
+        }
 
         // Static objects usually don't move, but we set position each frame for consistency.
         sf_groundVisual.setPosition(b2_groundBody->GetPosition().x * SCALE, b2_groundBody->GetPosition().y * SCALE);
@@ -184,11 +158,14 @@ int main() {
             bird->draw(window);
         }
 
+        for (Pig& pig : pigs) {
+           pig.draw(window);
+        }
+
         // Draw all the visuals
         window.draw(sf_groundVisual);
         window.draw(sf_wallVisual);
         window.draw(sf_plankVisual);
-        window.draw(sp_pig);
         window.draw(sp_cursor);
 
         window.setMouseCursorVisible(false);             // Hide the default mouse cursor

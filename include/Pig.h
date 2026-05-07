@@ -1,6 +1,8 @@
 #pragma once
-#include "DynamicObject.h"
 #include <SFML/Graphics.hpp>
+#include <box2d/box2d.h>
+#include <string>
+#include "DynamicObject.h"
 
 class Pig : public DynamicObject {
 public:
