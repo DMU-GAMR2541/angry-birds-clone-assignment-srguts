@@ -19,14 +19,14 @@ int main() {
 
     // load cursor texture
     sf::Texture sf_cursorTex;
-    if (!sf_cursorTex.loadFromFile("../../../../assets/Ang_Birds/cursor.png")) {
+    if (!sf_cursorTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/cursor.png")) {
         std::cout << "Failed to load texture" << std::endl;
     }
 
     // Assign texture to cursor sprite
     sp_cursor.setTexture(sf_cursorTex);
     sp_cursor.setOrigin(sf_cursorTex.getSize().x / 2.0f, sf_cursorTex.getSize().y / 2.0f);
-    sp_cursor.setScale(0.0199f, 0.0199f);
+    sp_cursor.setScale(0.2f, 0.2f);
 
     // Box2D works in meters. SFML works in pixels.
     const float SCALE = 30.0f;
@@ -100,7 +100,7 @@ int main() {
     std::list<std::shared_ptr<Bird>> birds;
     birds.push_back(std::make_shared<RedBird>(b2Vec2(100.0f / SCALE, 500.0f / SCALE), world));
     birds.push_back(std::make_shared<YellowBird>(b2Vec2(60.0f / SCALE, 500.0f / SCALE), world));
-    birds.push_back(std::make_shared<BlackBird>(b2Vec2(20.0f / SCALE, 500.0f / SCALE), world));
+    birds.push_back(std::make_shared<BlackBird>(b2Vec2(200.0f / SCALE, 550.0f / SCALE), world));
 
     // Pig List
     std::list<std::shared_ptr<Pig>> pigs;
