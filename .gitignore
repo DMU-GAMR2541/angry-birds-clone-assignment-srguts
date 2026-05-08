@@ -1,9 +1,34 @@
-Build/
-build/
-.DS_Store
-assets/.DS_Store
-assets/Ang_Birds/.DS_Store
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
 *.o
+*.obj
+
+# Libraries
+*.lib
 *.a
+*.la
+*.lo
+
+# Executables
 *.exe
-bin/
+*.out
+*.app
+
+# Build directory (Crucial for your current issue)
+Build/
+_deps/
+
+# Visual Studio files
+.vs/
+*.sln
+*.vcxproj
+*.filters
+*.user
+
+# OS files
+.DS_Store
+Thumbs.db

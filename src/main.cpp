@@ -19,7 +19,7 @@ int main() {
 
     // load cursor texture
     sf::Texture sf_cursorTex;
-    if (!sf_cursorTex.loadFromFile("../assets/Ang_Birds/cursor.png")) {
+    if (!sf_cursorTex.loadFromFile("../../../../assets/Ang_Birds/cursor.png")) {
         std::cout << "Failed to load texture" << std::endl;
     }
 
@@ -103,8 +103,8 @@ int main() {
     birds.push_back(std::make_shared<BlackBird>(b2Vec2(20.0f / SCALE, 500.0f / SCALE), world));
 
     // Pig List
-    std::list<Pig> pigs;
-    pigs.push_back(Pig(b2Vec2(595.0f / SCALE, 550.0f / SCALE), world));
+    std::list<std::shared_ptr<Pig>> pigs;
+    pigs.push_back(std::make_shared<Pig>(b2Vec2(595.0f / SCALE, 550.0f / SCALE),world));
 
     // --- MAIN LOOP ---
     while (window.isOpen()) {
@@ -131,11 +131,14 @@ int main() {
         // Update Physics
         world.Step(1.0f / 60.0f, 8, 3);
 
+		// Update all dynamic objects (birds and pigs).
         for (std::shared_ptr<Bird>& bird : birds) {
             bird->update();
         }
-        for (Pig& pig : pigs) {
-            pig.update();
+
+		// Update pigs after birds so they appear on top if they overlap.
+        for (std::shared_ptr<Pig>& pig : pigs) {
+            pig->update();
         }
 
         // Static objects usually don't move, but we set position each frame for consistency.
@@ -154,12 +157,14 @@ int main() {
         // Render all content. Clear first 
         window.clear(sf::Color(135, 206, 235)); // Sky Blue
 
+		// Draw birds first so they appear under pigs if they overlap.
         for (std::shared_ptr<Bird>& bird : birds) {
             bird->draw(window);
         }
 
-        for (Pig& pig : pigs) {
-           pig.draw(window);
+		// Draw pigs after birds so they appear on top if they overlap.
+        for (std::shared_ptr<Pig>& pig : pigs) {
+            pig->draw(window);
         }
 
         // Draw all the visuals
