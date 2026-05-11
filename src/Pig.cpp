@@ -17,7 +17,7 @@ Pig::Pig(b2Vec2 position, b2World& world) {
     // setup sprite
     sp_rendered.setTexture(sf_tex);
     sp_rendered.setOrigin(sf_tex.getSize().x / 2.0f, sf_tex.getSize().y / 2.0f);
-    sp_rendered.setScale(0.1f, 0.1f);
+    sp_rendered.setScale(0.35f, 0.35f);
 
     // setup physics body
     b2BodyDef b2_bodyDef;

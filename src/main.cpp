@@ -26,7 +26,7 @@ int main() {
     // Assign texture to cursor sprite
     sp_cursor.setTexture(sf_cursorTex);
     sp_cursor.setOrigin(sf_cursorTex.getSize().x / 2.0f, sf_cursorTex.getSize().y / 2.0f);
-    sp_cursor.setScale(0.2f, 0.2f);
+    sp_cursor.setScale(0.02f, 0.02f);
 
     // Box2D works in meters. SFML works in pixels.
     const float SCALE = 30.0f;
