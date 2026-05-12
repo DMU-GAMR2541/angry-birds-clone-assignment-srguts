@@ -5,13 +5,10 @@
 #include "DynamicObject.h"
 #include "Enemy.h"
 
-// IMPORTANT: List both parents here separated by a comma
 class Pig : public DynamicObject, public Enemy {
 public:
-    // The constructor signature
     Pig(b2Vec2 position, b2World& world, int health);
 
-    // Override the functions from DynamicObject
     void update() override;
     void draw(sf::RenderWindow& window) override;
 

@@ -9,17 +9,17 @@
 #include "BlackBird.h"
 #include "YellowBird.h"
 #include "Pig.h"
-#include "Slingshot.h" // Ensure you have this header!
+#include "Slingshot.h" 
 
 int main() {
-    // --- 1. WINDOW SETUP ---
+	// window setup
     sf::RenderWindow window(sf::VideoMode(1200, 800), "Annoyed_Flocks");
-    window.setFramerateLimit(60); // Match physics step for smoothness
+    window.setFramerateLimit(60); 
 
     const float SCALE = 30.0f;
     const float PI = 3.1415927f;
 
-    // --- 2. PHYSICS SETUP ---
+	// physics setup
     b2Vec2 b2_gravity(0.0f, 9.8f);
     b2World world(b2_gravity);
 
@@ -35,8 +35,16 @@ int main() {
     sf_groundVisual.setOrigin(600.0f, 10.0f);
     sf_groundVisual.setFillColor(sf::Color(34, 139, 34));
 
-    // --- 3. OBJECT INSTANTIATION ---
-    // Create the OO Slingshot at a specific position
+	// Plank Setup
+	b2BodyDef b2_plankBodyDef;
+	b2_plankBodyDef.type = b2_dynamicBody;
+	b2_plankBodyDef.position.Set(700.0f / SCALE, 550.0f / SCALE);
+	b2Body* b2_plankBody = world.CreateBody(&b2_plankBodyDef);
+	b2PolygonShape b2_plankBox;
+	b2_plankBox.SetAsBox(100.0f / SCALE, 10.0f / SCALE);
+	b2_groundBody->CreateFixture(&b2_plankBox, 0.0f);
+
+	// Slingshot Setup
     Slingshot catapult(sf::Vector2f(200.0f, 500.0f));
 
     // Bird List
@@ -50,7 +58,7 @@ int main() {
     pigs.push_back(std::make_shared<Pig>(b2Vec2(800.0f / SCALE, 550.0f / SCALE), world, 3));
     pigs.push_back(std::make_shared<Pig>(b2Vec2(850.0f / SCALE, 550.0f / SCALE), world, 1));
 
-    // --- 4. MAIN LOOP ---
+    // main game loop
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -70,32 +78,50 @@ int main() {
         for (auto it = birds.begin(); it != birds.end();) {
             (*it)->update();
 
-            // Logic: If a bird has been fired and is barely moving, remove it to bring the next one up
+			// Check if the bird has been fired
             b2Vec2 velocity = (*it)->getBody()->GetLinearVelocity();
-            bool isFired = (*it)->getBody()->GetPosition().x > 250.0f / SCALE; // Simple check if it left the slingshot
+            bool isFired = (*it)->getBody()->GetPosition().x > 250.0f / SCALE; // check if bird left the slingshot
 
+			// if a bird has been fired and is almost stationary, remove it from the list
             if (isFired && velocity.Length() < 0.1f) {
-                // it = birds.erase(it); // Uncomment this to cycle through your birds!
-                ++it;
+                it = birds.erase(it); // remove the bird and get the next iterator
             }
             else {
-                ++it;
-            }
+                ++it; // move to the next bird
+			}
+
+            //if (isFired && velocity.Length() < 0.1f) {
+            //    // it = birds.erase(it); 
+            //    ++it;
+            //}
+            //else {
+            //    ++it;
+            //}
         }
+
+		//// check for collisions and apply damage 
+  //      for (auto& pig : pigs) {
+  //          std::shared_ptr<DynamicObject> obj = pig;
+		//	// Check if the pig is colliding with any bird
+  //          Enemy* enemyPart = dynamic_cast<Enemy*>(obj.get());
+  //          if (enemyPart && pig->getBody()->GetLinearVelocity().Length() > 2.0f) {
+  //              enemyPart->takeDamage(1);
+  //          }
 
         // Update Pigs
         for (auto& pig : pigs) {
             pig->update();
         }
 
-        // --- 5. RENDERING ---
+        // rendering
         window.clear(sf::Color(135, 206, 235));
 
-        // Draw Ground
+        // Draw ground
         sf_groundVisual.setPosition(b2_groundBody->GetPosition().x * SCALE, b2_groundBody->GetPosition().y * SCALE);
         window.draw(sf_groundVisual);
+		
 
-        // Draw Catapult rubber bands (under the bird)
+		// Draw slingshot 
         catapult.draw(window);
 
         // Draw Birds

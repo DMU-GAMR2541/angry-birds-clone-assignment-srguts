@@ -15,7 +15,6 @@ private:
 public:
     Slingshot(sf::Vector2f position);
 
-    // FIX: Ensure this takes exactly these 3 arguments in this order
     void update(sf::RenderWindow& window, sf::Event& event, std::shared_ptr<Bird> activeBird);
 
     void draw(sf::RenderWindow& window);
