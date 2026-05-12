@@ -19,6 +19,20 @@ int main() {
     const float SCALE = 30.0f;
     const float PI = 3.1415927f;
 
+	// cursor setup
+    sf::Sprite sp_cursor;
+
+	// load cursor texture
+    sf::Texture sf_cursorTex;
+    if (!sf_cursorTex.loadFromFile("../../../../assets/Ang_Birds/cursor.png")) {
+		std::cout << "Failed to load texture" << std::endl;
+    }
+
+	// assign texture to sprite and set origin to center for rotation
+    sp_cursor.setTexture(sf_cursorTex);
+	sp_cursor.setOrigin(sf_cursorTex.getSize().x / 2.0f, sf_cursorTex.getSize().y / 2.0f);
+	sp_cursor.setScale(0.03f, 0.03f);
+
 	// physics setup
     b2Vec2 b2_gravity(0.0f, 9.8f);
     b2World world(b2_gravity);
@@ -35,6 +49,12 @@ int main() {
     sf_groundVisual.setOrigin(600.0f, 10.0f);
     sf_groundVisual.setFillColor(sf::Color(34, 139, 34));
 
+	// cursor setup
+	b2BodyDef b2_cursorBodyDef;
+	b2_cursorBodyDef.type = b2_kinematicBody;
+	b2_cursorBodyDef.position.Set(0.0f, 0.0f);
+	b2Body* b2_cursorBody = world.CreateBody(&b2_cursorBodyDef);
+
 	// Plank Setup
 	b2BodyDef b2_plankBodyDef;
 	b2_plankBodyDef.type = b2_dynamicBody;
@@ -46,6 +66,13 @@ int main() {
 
 	// Slingshot Setup
     Slingshot catapult(sf::Vector2f(200.0f, 500.0f));
+
+    //// load cursor texture
+    //sf::Texture sf_cursorTex;
+    //if (!sf_cursorTex.loadFromFile("../../../../assets/Ang_Birds/cursor.png")) {
+    //    if (!sf_cursorTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/cursor.png")) {
+    //        std::cout << "Failed to load texture" << std::endl;
+    //    }
 
     // Bird List
     std::list<std::shared_ptr<Bird>> birds;
@@ -113,6 +140,11 @@ int main() {
             pig->update();
         }
 
+		// cursor follows mouse position
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+		sp_cursor.setPosition(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+		b2_cursorBody->SetTransform(b2Vec2(mousePos.x / SCALE, mousePos.y / SCALE), 0);
+
         // rendering
         window.clear(sf::Color(135, 206, 235));
 
@@ -134,6 +166,9 @@ int main() {
             pig->draw(window);
         }
 
+		window.draw(sp_cursor);
+		window.setMouseCursorVisible(false);
+	
         window.display();
     }
 
