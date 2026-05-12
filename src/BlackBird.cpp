@@ -1,7 +1,7 @@
 #include "BlackBird.h"
 
 BlackBird::BlackBird(b2Vec2 position, b2World& world)
-    : Bird("../../../../assets/Ang_Birds/BlackBird.png", position, world, 3.0f, 0.1f, 0.5f) {
+	: Bird("../../../../assets/Ang_Birds/BlackBird.png", position, world, 0.5f, 0.5f, 0.5f) {   // higher density, lower restitution, larger scale
     // any BlackBird specific setup here
     // sp_rendered.setScale(0.2f, 0.2f);
 }

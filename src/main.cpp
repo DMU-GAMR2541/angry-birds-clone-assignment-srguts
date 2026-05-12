@@ -12,28 +12,29 @@
 #include "Slingshot.h" 
 
 int main() {
-	// window setup
+    // window setup
     sf::RenderWindow window(sf::VideoMode(1200, 800), "Annoyed_Flocks");
-    window.setFramerateLimit(60); 
+    window.setFramerateLimit(60);
 
     const float SCALE = 30.0f;
     const float PI = 3.1415927f;
 
-	// cursor setup
+    // cursor setup
     sf::Sprite sp_cursor;
 
-	// load cursor texture
+    // load cursor texture
     sf::Texture sf_cursorTex;
+
     if (!sf_cursorTex.loadFromFile("../../../../assets/Ang_Birds/cursor.png")) {
-		std::cout << "Failed to load texture" << std::endl;
+        std::cout << "Failed to load texture" << std::endl;
     }
 
-	// assign texture to sprite and set origin to center for rotation
+    // assign texture to sprite and set origin to center for rotation
     sp_cursor.setTexture(sf_cursorTex);
-	sp_cursor.setOrigin(sf_cursorTex.getSize().x / 2.0f, sf_cursorTex.getSize().y / 2.0f);
-	sp_cursor.setScale(0.03f, 0.03f);
+    sp_cursor.setOrigin(sf_cursorTex.getSize().x / 2.0f, sf_cursorTex.getSize().y / 2.0f);
+    sp_cursor.setScale(0.03f, 0.03f);
 
-	// physics setup
+    // physics setup
     b2Vec2 b2_gravity(0.0f, 9.8f);
     b2World world(b2_gravity);
 
@@ -49,22 +50,22 @@ int main() {
     sf_groundVisual.setOrigin(600.0f, 10.0f);
     sf_groundVisual.setFillColor(sf::Color(34, 139, 34));
 
-	// cursor setup
-	b2BodyDef b2_cursorBodyDef;
-	b2_cursorBodyDef.type = b2_kinematicBody;
-	b2_cursorBodyDef.position.Set(0.0f, 0.0f);
-	b2Body* b2_cursorBody = world.CreateBody(&b2_cursorBodyDef);
+    // cursor setup
+    b2BodyDef b2_cursorBodyDef;
+    b2_cursorBodyDef.type = b2_kinematicBody;
+    b2_cursorBodyDef.position.Set(0.0f, 0.0f);
+    b2Body* b2_cursorBody = world.CreateBody(&b2_cursorBodyDef);
 
-	// Plank Setup
-	b2BodyDef b2_plankBodyDef;
-	b2_plankBodyDef.type = b2_dynamicBody;
-	b2_plankBodyDef.position.Set(700.0f / SCALE, 550.0f / SCALE);
-	b2Body* b2_plankBody = world.CreateBody(&b2_plankBodyDef);
-	b2PolygonShape b2_plankBox;
-	b2_plankBox.SetAsBox(100.0f / SCALE, 10.0f / SCALE);
-	b2_groundBody->CreateFixture(&b2_plankBox, 0.0f);
+    // Plank Setup
+    b2BodyDef b2_plankBodyDef;
+    b2_plankBodyDef.type = b2_dynamicBody;
+    b2_plankBodyDef.position.Set(700.0f / SCALE, 550.0f / SCALE);
+    b2Body* b2_plankBody = world.CreateBody(&b2_plankBodyDef);
+    b2PolygonShape b2_plankBox;
+    b2_plankBox.SetAsBox(100.0f / SCALE, 10.0f / SCALE);
+    b2_groundBody->CreateFixture(&b2_plankBox, 0.0f);
 
-	// Slingshot Setup
+    // Slingshot Setup
     Slingshot catapult(sf::Vector2f(200.0f, 500.0f));
 
     // Bird List
@@ -94,76 +95,60 @@ int main() {
         // Update Physics
         world.Step(1.0f / 60.0f, 8, 3);
 
-        // Update All Birds
-        for (auto it = birds.begin(); it != birds.end();) {
-            (*it)->update();
-
-			// Check if the bird has been fired
-            b2Vec2 velocity = (*it)->getBody()->GetLinearVelocity();
-            bool isFired = (*it)->getBody()->GetPosition().x > 250.0f / SCALE; // check if bird left the slingshot
-
-			// if a bird has been fired and is almost still, remove from list
-            if (isFired && velocity.Length() < 1.0f) {
+        // 2. Update Birds (and remove still ones) 
+        for (auto it = birds.begin(); it != birds.end();) { 
+            (*it)->update(); 
+            b2Vec2 velocity = (*it)->getBody()->GetLinearVelocity(); 
+            bool isFired = (*it)->getBody()->GetPosition().x > 250.0f / SCALE; 
+            
+            if (isFired && velocity.Length() < 1.0f) { 
                 it = birds.erase(it); 
+            } else { 
+                ++it; 
+            } 
+        } 
+        
+        // 3. Update Pigs (and remove dead ones) 
+        for (auto it = pigs.begin(); it != pigs.end();) { 
+            (*it)->update(); 
+            if ((*it)->getHealth() <= 0) { 
+                it = pigs.erase(it); 
+            } else { ++it; 
+            } 
+        }
+
+
+                // cursor follows mouse position
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                sp_cursor.setPosition(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+
+                // rendering
+                window.clear(sf::Color(135, 206, 235));
+
+                // Draw ground
+                sf_groundVisual.setPosition(b2_groundBody->GetPosition().x * SCALE, b2_groundBody->GetPosition().y * SCALE);
+                window.draw(sf_groundVisual);
+
+
+                // Draw slingshot 
+                catapult.draw(window);
+
+                // Draw Birds
+                for (auto& bird : birds) {
+                    bird->draw(window);
+                }
+
+                // Draw Pigs
+                for (auto& pig : pigs) {
+                    pig->draw(window);
+                }
+
+                window.draw(sp_cursor);
+                window.setMouseCursorVisible(false);
+
+                window.display();
             }
-            else {
-                ++it; // move to the next bird
-			}
 
-            //if (isFired && velocity.Length() < 0.1f) {
-            //    // it = birds.erase(it); 
-            //    ++it;
-            //}
-            //else {
-            //    ++it;
-            //}
+            return 0;
         }
-
-		//// check for collisions and apply damage 
-  //      for (auto& pig : pigs) {
-  //          std::shared_ptr<DynamicObject> obj = pig;
-		//	// Check if the pig is colliding with any bird
-  //          Enemy* enemyPart = dynamic_cast<Enemy*>(obj.get());
-  //          if (enemyPart && pig->getBody()->GetLinearVelocity().Length() > 2.0f) {
-  //              enemyPart->takeDamage(1);
-  //          }
-
-        // Update Pigs
-        for (auto& pig : pigs) {
-            pig->update();
-        }
-
-		// cursor follows mouse position
-		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-		sp_cursor.setPosition(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-		b2_cursorBody->SetTransform(b2Vec2(mousePos.x / SCALE, mousePos.y / SCALE), 0);
-
-        // rendering
-        window.clear(sf::Color(135, 206, 235));
-
-        // Draw ground
-        sf_groundVisual.setPosition(b2_groundBody->GetPosition().x * SCALE, b2_groundBody->GetPosition().y * SCALE);
-        window.draw(sf_groundVisual);
-		
-
-		// Draw slingshot 
-        catapult.draw(window);
-
-        // Draw Birds
-        for (auto& bird : birds) {
-            bird->draw(window);
-        }
-
-        // Draw Pigs
-        for (auto& pig : pigs) {
-            pig->draw(window);
-        }
-
-		window.draw(sp_cursor);
-		window.setMouseCursorVisible(false);
-	
-        window.display();
-    }
-
-    return 0;
-}
+ 
