@@ -67,13 +67,6 @@ int main() {
 	// Slingshot Setup
     Slingshot catapult(sf::Vector2f(200.0f, 500.0f));
 
-    //// load cursor texture
-    //sf::Texture sf_cursorTex;
-    //if (!sf_cursorTex.loadFromFile("../../../../assets/Ang_Birds/cursor.png")) {
-    //    if (!sf_cursorTex.loadFromFile("H:/Downloads/angry-birds-clone-assignment-srguts/assets/Ang_Birds/cursor.png")) {
-    //        std::cout << "Failed to load texture" << std::endl;
-    //    }
-
     // Bird List
     std::list<std::shared_ptr<Bird>> birds;
     birds.push_back(std::make_shared<RedBird>(b2Vec2(200.0f / SCALE, 500.0f / SCALE), world));
@@ -109,9 +102,9 @@ int main() {
             b2Vec2 velocity = (*it)->getBody()->GetLinearVelocity();
             bool isFired = (*it)->getBody()->GetPosition().x > 250.0f / SCALE; // check if bird left the slingshot
 
-			// if a bird has been fired and is almost stationary, remove it from the list
-            if (isFired && velocity.Length() < 0.1f) {
-                it = birds.erase(it); // remove the bird and get the next iterator
+			// if a bird has been fired and is almost still, remove from list
+            if (isFired && velocity.Length() < 1.0f) {
+                it = birds.erase(it); 
             }
             else {
                 ++it; // move to the next bird
