@@ -1,7 +1,8 @@
 #include "Pig.h"
 #include <iostream>
 
-Pig::Pig(b2Vec2 position, b2World& world) {
+Pig::Pig(b2Vec2 position, b2World& world, int health) 
+	: Enemy(health) { // Initialize Enemy with 3 health
     // load texture
     if (!sf_tex.loadFromFile("../../../../assets/Ang_Birds/Pig.png")) {
         std::cout << "Failed to load texture" << std::endl;

@@ -1,32 +1,22 @@
 #pragma once
-#include <string>
+#include <SFML/Graphics.hpp>
+#include <box2d/box2d.h>
+#include "Bird.h"
+#include <memory>
 
-/// <summary>
-/// A simple class that you can use to begin the testing process using Googletest.
-/// </summary>
 class Slingshot {
 private:
-    /// <summary>
-    /// Variables that define the slingshot.
-    /// </summary>
-    int i_tension;
-    std::string str_birdType;
-    const int MAX_TENSION = 100;
+    sf::Vector2f m_anchor;
+    bool m_isDragging;
+    sf::Vector2f m_dragPos;
+    const float m_maxDrag = 100.0f;
+    const float SCALE = 30.0f;
 
 public:
-    Slingshot() : i_tension(0), str_birdType("Red") {}
+    Slingshot(sf::Vector2f position);
 
-    //Functions to test.
-    void loadBird(std::string str_type) { str_birdType = str_type; }
+    // FIX: Ensure this takes exactly these 3 arguments in this order
+    void update(sf::RenderWindow& window, sf::Event& event, std::shared_ptr<Bird> activeBird);
 
-    bool pullBack(int amount) {
-        if (amount < 0) return false;
-        i_tension = (i_tension + amount > MAX_TENSION) ? MAX_TENSION : i_tension + amount;
-        return true;
-    }
-
-    int getTension() const { return i_tension; }
-    std::string getBirdType() const { return str_birdType; }
-
-    void release() { i_tension = 0; }
+    void draw(sf::RenderWindow& window);
 };
