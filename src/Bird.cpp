@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 
-// Added 'scale' to the constructor parameters
+// Added scale to constructor
 Bird::Bird(const std::string& texturePath, b2Vec2 position, b2World& world, float density, float restitution, float scale) {
 
 	if (!sf_tex.loadFromFile(texturePath)) {
@@ -22,7 +22,7 @@ Bird::Bird(const std::string& texturePath, b2Vec2 position, b2World& world, floa
 	b2_bodyDef.position = position;
 	b2_body = world.CreateBody(&b2_bodyDef);
 
-	// dynamic radius setup based on size of sprite
+	// radius adapts to size of sprite
 	float visualWidth = sf_tex.getSize().x * scale;
 	b2_circleShape.m_radius = (visualWidth / 2.0f) / SCALE;
 
