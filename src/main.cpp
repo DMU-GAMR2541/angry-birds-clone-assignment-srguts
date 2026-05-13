@@ -38,7 +38,7 @@ int main() {
     b2Vec2 b2_gravity(0.0f, 9.8f);
     b2World world(b2_gravity);
 
-    // Ground Setup
+    // ground setup
     b2BodyDef b2_groundBodyDef;
     b2_groundBodyDef.position.Set(600.0f / SCALE, 600.0f / SCALE);
     b2Body* b2_groundBody = world.CreateBody(&b2_groundBodyDef);
@@ -56,7 +56,7 @@ int main() {
     b2_cursorBodyDef.position.Set(0.0f, 0.0f);
     b2Body* b2_cursorBody = world.CreateBody(&b2_cursorBodyDef);
 
-    // Plank Setup
+    // plank setup
     b2BodyDef b2_plankBodyDef;
     b2_plankBodyDef.type = b2_dynamicBody;
     b2_plankBodyDef.position.Set(700.0f / SCALE, 550.0f / SCALE);
@@ -65,16 +65,16 @@ int main() {
     b2_plankBox.SetAsBox(100.0f / SCALE, 10.0f / SCALE);
     b2_groundBody->CreateFixture(&b2_plankBox, 0.0f);
 
-    // Slingshot Setup
+    // slingshot setup
     Slingshot catapult(sf::Vector2f(200.0f, 500.0f));
 
-    // Bird List
+    // bird list
     std::list<std::shared_ptr<Bird>> birds;
     birds.push_back(std::make_shared<RedBird>(b2Vec2(200.0f / SCALE, 500.0f / SCALE), world));
     birds.push_back(std::make_shared<BlackBird>(b2Vec2(160.0f / SCALE, 500.0f / SCALE), world));
     birds.push_back(std::make_shared<YellowBird>(b2Vec2(120.0f / SCALE, 500.0f / SCALE), world));
 
-    // Pig List
+    // pig list
     std::list<std::shared_ptr<Pig>> pigs;
     pigs.push_back(std::make_shared<Pig>(b2Vec2(800.0f / SCALE, 550.0f / SCALE), world, 3));
     pigs.push_back(std::make_shared<Pig>(b2Vec2(850.0f / SCALE, 550.0f / SCALE), world, 1));
@@ -86,16 +86,16 @@ int main() {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // The Slingshot handles its own mouse input logic now
+            // The slingshot handles its own mouse input logic 
             if (!birds.empty()) {
                 catapult.update(window, event, birds.front());
             }
         }
 
-        // Update Physics
+        // update physics
         world.Step(1.0f / 60.0f, 8, 3);
 
-        // 2. Update Birds (and remove still ones) 
+        // update birds and remove still ones 
         for (auto it = birds.begin(); it != birds.end();) { 
             (*it)->update(); 
             b2Vec2 velocity = (*it)->getBody()->GetLinearVelocity(); 
@@ -108,7 +108,7 @@ int main() {
             } 
         } 
         
-        // 3. Update Pigs (and remove dead ones) 
+        // update pigs and remove dead ones 
         for (auto it = pigs.begin(); it != pigs.end();) { 
             (*it)->update(); 
             if ((*it)->getHealth() <= 0) { 
@@ -125,20 +125,20 @@ int main() {
                 // rendering
                 window.clear(sf::Color(135, 206, 235));
 
-                // Draw ground
+                // draw ground
                 sf_groundVisual.setPosition(b2_groundBody->GetPosition().x * SCALE, b2_groundBody->GetPosition().y * SCALE);
                 window.draw(sf_groundVisual);
 
 
-                // Draw slingshot 
+                // draw slingshot 
                 catapult.draw(window);
 
-                // Draw Birds
+                // draw birds
                 for (auto& bird : birds) {
                     bird->draw(window);
                 }
 
-                // Draw Pigs
+                // draw pigs
                 for (auto& pig : pigs) {
                     pig->draw(window);
                 }
