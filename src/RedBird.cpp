@@ -2,7 +2,6 @@
 
 RedBird::RedBird(b2Vec2 position, b2World& world)
     : Bird("../../../../assets/Ang_Birds/RedBirdNoBG.png", position, world, 1.0f, 0.5f, 0.35f) {
-    // any RedBird setup here
     // sp_rendered.setScale(0.35f, 0.35f);
 }
 
