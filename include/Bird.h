@@ -8,7 +8,6 @@
 class Bird : public DynamicObject {
 public:
 	Bird(const std::string& texturePath, b2Vec2 position, b2World& world, float density, float restitution, float scale);
-	b2Body* getBody() { return b2_body; }
 	void update();
 	void draw(sf::RenderWindow& window);
 

@@ -2,8 +2,9 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <box2d/box2d.h>
+#include "GameObject.h"
 
-class DynamicObject {
+class DynamicObject : public GameObject {
 private:
 	std::string name;
 	float x, y; // Position of the object
@@ -18,6 +19,8 @@ public:
 	virtual ~DynamicObject() = default;
 	virtual void update() = 0; // virtual function to update the object's state
 	virtual void draw(sf::RenderWindow& window) = 0; // virtual function to draw the object
+
+	b2Body* getBody() const { return b2_body; }
 
 };
 
