@@ -7,9 +7,9 @@ RedBird::RedBird(b2Vec2 position, b2World& world)
 }
 
 void RedBird::update() {
-    Bird::update();  // call the parent update
+    Bird::update();  // call update
 }
 
 void RedBird::draw(sf::RenderWindow& window) {
-    Bird::draw(window);  // call the parent draw
+    Bird::draw(window);  // call draw
 }
