@@ -16,8 +16,8 @@ protected:
 
 public:
 	virtual ~DynamicObject() = default;
-	virtual void update() = 0; // Pure virtual function to update the object's state
-	virtual void draw(sf::RenderWindow& window) = 0; // Pure virtual function to draw the object
+	virtual void update() = 0; // virtual function to update the object's state
+	virtual void draw(sf::RenderWindow& window) = 0; // virtual function to draw the object
 
 };
 
