@@ -9,7 +9,8 @@ private:
     sf::Vector2f m_anchor;
     bool m_isDragging;
     sf::Vector2f m_dragPos;
-    const float m_maxDrag = 100.0f;
+
+    const float m_maxDrag = 100.0f; // limit to drag distance
     const float SCALE = 30.0f;
 
 public:
