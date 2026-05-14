@@ -37,6 +37,7 @@ int main() {
     sf_groundVisual.setFillColor(sf::Color(34, 139, 34)); // forest green
     sf_groundVisual.setOrigin(960.0f, 0.0f); // origin at top center of rectangle
 
+    // b2d definitions
     b2BodyDef b2_groundBodyDef;
     b2_groundBodyDef.position.Set(960.0f / SCALE, 600.0f / SCALE);
     b2Body* b2_groundBody = world.CreateBody(&b2_groundBodyDef);
@@ -55,7 +56,7 @@ int main() {
     // slingshot setup
     Slingshot catapult(sf::Vector2f(200.0f, 500.0f));
 
-    // birds spawned on the high platform
+    // birds spawned on the high platform and out the way
     std::list<std::shared_ptr<Bird>> birds;
     birds.push_back(std::make_shared<RedBird>(b2Vec2(150.0f / SCALE, 170.0f / SCALE), world));
     birds.push_back(std::make_shared<BlackBird>(b2Vec2(100.0f / SCALE, 170.0f / SCALE), world));
@@ -73,7 +74,7 @@ int main() {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // hotkey to swap birds 
+            // hotkey to swap birds (TAB)
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Tab) {
                 if (birds.size() > 1) {
                     auto current = birds.front();
@@ -89,7 +90,7 @@ int main() {
 
         world.Step(1.0f / 60.0f, 8, 3);
 
-        // update birds and freeze non-active ones
+        // update birds and freeze the ones not being used
         int birdIndex = 0;
         for (auto it = birds.begin(); it != birds.end();) {
             (*it)->update();
@@ -97,7 +98,7 @@ int main() {
             b2Vec2 velocity = body->GetLinearVelocity();
             bool isFired = body->GetPosition().x > 250.0f / SCALE;
 
-            // keep waiting birds frozen in the sky
+            // keep waiting birds frozen in the sky so they do not roll around
             if (!isFired && birdIndex > 0) {
                 body->SetLinearVelocity(b2Vec2(0, 0));
                 body->SetAngularVelocity(0);
@@ -112,7 +113,7 @@ int main() {
             }
         }
 
-        // update pigs and handle death 
+        // update pigs and death logic 
         for (auto it = pigs.begin(); it != pigs.end();) {
             Enemy* enemyPart = dynamic_cast<Enemy*>((*it).get());
             if (enemyPart) {
