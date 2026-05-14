@@ -21,7 +21,7 @@ int main() {
     // cursor visuals 
     sf::Sprite sp_cursor;
     sf::Texture sf_cursorTex;
-    if (!sf_cursorTex.loadFromFile("../../../../assets/Ang_Birds/cursor.png")) {
+    if (!sf_cursorTex.loadFromFile("assets/Ang_Birds/cursor.png")) {
         std::cout << "failed to load texture" << std::endl;
     }
     sp_cursor.setTexture(sf_cursorTex);
@@ -46,11 +46,11 @@ int main() {
     b2_groundBody->CreateFixture(&b2_groundBox, 0.0f);
 
     // bird platform in the sky
-    auto birdPlatform = std::make_shared<StaticObject>("../../../../assets/Ang_Birds/wall.png",
+    auto birdPlatform = std::make_shared<StaticObject>("assets/Ang_Birds/wall.png",
         b2Vec2(200.0f / SCALE, 200.0f / SCALE), world, sf::Vector2f(600.0f, 20.0f));
 
     // right-side wall
-    auto rightWall = std::make_shared<StaticObject>("../../../../assets/Ang_Birds/wall.png",
+    auto rightWall = std::make_shared<StaticObject>("assets/Ang_Birds/wall.png",
         b2Vec2(1000.0f / SCALE, 500.0f / SCALE), world, sf::Vector2f(20.0f, 200.0f));
 
     // slingshot setup
