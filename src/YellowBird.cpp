@@ -1,7 +1,7 @@
 #include "YellowBird.h"
 
 YellowBird::YellowBird(b2Vec2 position, b2World& world)
-    : Bird("../../../../assets/Ang_Birds/YellowBird.png", position, world, 0.5f, 0.8f, 0.35f) {
+    : Bird("assets/Ang_Birds/YellowBird.png", position, world, 0.5f, 0.8f, 0.35f) {
     // sp_rendered.setScale(0.1f, 0.1f);
 }
 
