@@ -105,10 +105,22 @@ TEST_F(EnemyTest, StringsNotEqual) {                            // Tests that tw
     EXPECT_STRNE(str1.c_str(), str2.c_str());
 }
 
+// Slingshot tests.
 TEST(Slingshot, Instantiation) {
     Slingshot s(sf::Vector2f(0, 0));                            // Tests that the slingshot can be instantiated without crashing.
 	EXPECT_TRUE(true); 
 }
+
+// tests that the slingshot can be dragged without crashing.
+TEST(Slingshot, Dragging) {
+    Slingshot s(sf::Vector2f(0, 0));
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Test Window");
+    sf::Event event;
+    std::shared_ptr<Bird> activeBird = nullptr; // No bird is active in this test.
+    s.update(window, event, activeBird);
+    EXPECT_TRUE(true); 
+}
+
 
 class ParamTest : public ::testing::TestWithParam<int> {         // Tests that the value of the parameter is greater than 1.
 protected:
