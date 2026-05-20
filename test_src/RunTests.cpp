@@ -104,6 +104,12 @@ TEST_F(EnemyTest, StringsNotEqual) {                            // Tests that tw
     std::string str2 = "Bird";
     EXPECT_STRNE(str1.c_str(), str2.c_str());
 }
+
+TEST(Slingshot, Instantiation) {
+    Slingshot s(sf::Vector2f(0, 0));                            // Tests that the slingshot can be instantiated without crashing.
+	EXPECT_TRUE(true); 
+}
+
 class ParamTest : public ::testing::TestWithParam<int> {         // Tests that the value of the parameter is greater than 1.
 protected:
     ParamTest() = default;
