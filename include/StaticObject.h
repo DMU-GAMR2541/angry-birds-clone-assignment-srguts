@@ -23,6 +23,10 @@ public:
         b2_body->CreateFixture(&box, 0.0f); // 0.0 density = static
     }
 
+    b2Body* getBody() const {
+        return b2_body;
+    }
+
     // update just keeps sprite in place
     void update() override {
         sp_rendered.setPosition(b2_body->GetPosition().x * SCALE, b2_body->GetPosition().y * SCALE);
