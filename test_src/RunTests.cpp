@@ -44,7 +44,7 @@ protected:
 };
 
 //A single test, not a fixture. No setup is called.
-TEST(Enemy, First_test) {                                      // Tests that health is initialized correctly.
+TEST(Enemy, First_test) {                                       // Tests that health is initialized correctly.
     Enemy e(100);
     EXPECT_EQ(e.getHealth(), 100);  
 }
@@ -117,7 +117,7 @@ TEST(Slingshot, Dragging) {
     Slingshot s(sf::Vector2f(0, 0));
     sf::RenderWindow window(sf::VideoMode(800, 600), "Test Window");
     sf::Event event;
-    std::shared_ptr<Bird> activeBird = nullptr; // No bird is active in this test.
+    std::shared_ptr<Bird> activeBird = nullptr; // no bird is active
     s.update(window, event, activeBird);
     EXPECT_TRUE(true); 
 }
@@ -131,14 +131,14 @@ TEST(DynamicObjectTest, CharacterMovement) {
 	RedBird redbird(b2Vec2(0.0f, 0.0f), world);                   
 	// get the initial position of the RedBird
 	b2Vec2 initialPosition = redbird.getBody()->GetPosition();    
-	// apply a velocity to the RedBird's body to simulate movement
+	// apply a velocity to the RedBird's body to sim movement
     redbird.getBody()->SetLinearVelocity(b2Vec2(10.0f, 0.0f));
-	// step the Box2D world to update the RedBird's position based on its velocity
+	// step (move forward) the Box2D world to update the RedBird's position based on its velocity
     float timeStep = 1.0f / 60.0f;
     world.Step(timeStep, 8, 3);
-	// update the RedBird's state
+	// update RedBird's state
     redbird.update();
-	// get the final position of the RedBird after stepping the world
+	// get the final position of the RedBird 
     b2Vec2 finalPosition = redbird.getBody()->GetPosition();
     EXPECT_NE(finalPosition.x, initialPosition.x);
 }
@@ -147,9 +147,9 @@ TEST(StaticObjectTest, SceneryPlacementWithinBounds) {
 	// create a Box2D world with gravity
     b2Vec2 gravity(0.0f, 9.81f);
     b2World world(gravity);
-	// Create a StaticObject (plank) at position (20, 12) in the world with size (2, 0.5)
+	// create a StaticObject (plank) at position (20, 12) in the world with size (2, 0.5)
     StaticObject plank("assets/wall.png", b2Vec2(20.0f, 12.0f), world, sf::Vector2f(2.0f, 0.5f));
-	// Check that the plank's position is within bounds
+	// check that the plank's position is within bounds
     b2Vec2 pos = plank.getBody()->GetPosition();
     EXPECT_GE(pos.x, 0.0f);
     EXPECT_LE(pos.x, 40.0f);
@@ -157,7 +157,37 @@ TEST(StaticObjectTest, SceneryPlacementWithinBounds) {
     EXPECT_LE(pos.y, 24.0f);
 }
 
-class ParamTest : public ::testing::TestWithParam<int> {         // Tests that the value of the parameter is greater than 1.
+TEST(SpatialTests, RelativePositions) {
+    b2Vec2 gravity(0.0f, 0.0f);
+    b2World world(gravity);
+    sf::Vector2f size(1.0f, 1.0f);
+
+    // create 3 objects in a straight line
+    StaticObject obj1("assets/wall.png", b2Vec2(0.0f, 0.0f), world, size);
+    StaticObject obj2("assets/wall.png", b2Vec2(10.0f, 0.0f), world, size);
+    StaticObject obj3("assets/wall.png", b2Vec2(20.0f, 0.0f), world, size);
+
+    float x1 = obj1.getBody()->GetPosition().x;
+    float x2 = obj2.getBody()->GetPosition().x;
+    float x3 = obj3.getBody()->GetPosition().x;
+
+    // and the maths to check if they work
+    EXPECT_EQ(x2, x1 + 10.0f);
+    EXPECT_EQ(x3, x2 + 10.0f);
+    EXPECT_EQ(x3, x1 + 20.0f);
+}
+
+TEST(SpriteTextureTest, SpriteTextureLoad) {
+    sf::Texture texture;
+    
+    // check for a file that does exist
+    EXPECT_TRUE(texture.loadFromFile("assets/Pig.png"));
+    
+    // check for a file that doesnt exist
+    EXPECT_FALSE(texture.loadFromFile("assets/thisfiledoesntexist.png"));
+}
+
+class ParamTest : public ::testing::TestWithParam<int> {         // Tests that the value of the param is greater than 1.
 protected:
     ParamTest() = default;
     ~ParamTest() = default;
