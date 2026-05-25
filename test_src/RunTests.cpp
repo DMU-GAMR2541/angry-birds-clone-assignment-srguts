@@ -127,17 +127,23 @@ TEST(DynamicObjectTest, CharacterMovement) {
 	// create a Box2D world with gravity
 	b2Vec2 gravity(0.0f, 9.81f);                              
     b2World world(gravity);
-	// create a RedBird at position (0, 0) in the world
+	
+	// create a RedBird at origin in the world
 	RedBird redbird(b2Vec2(0.0f, 0.0f), world);                   
+	
 	// get the initial position of the RedBird
 	b2Vec2 initialPosition = redbird.getBody()->GetPosition();    
-	// apply a velocity to the RedBird's body to sim movement
+	
+	// apply a velocity to the RedBird's body to act as movement
     redbird.getBody()->SetLinearVelocity(b2Vec2(10.0f, 0.0f));
-	// step (move forward) the Box2D world to update the RedBird's position based on its velocity
+	
+	// move the Box2D world forward to update the RedBird's position based on its velocity
     float timeStep = 1.0f / 60.0f;
     world.Step(timeStep, 8, 3);
+	
 	// update RedBird's state
     redbird.update();
+	
 	// get the final position of the RedBird 
     b2Vec2 finalPosition = redbird.getBody()->GetPosition();
     EXPECT_NE(finalPosition.x, initialPosition.x);
@@ -147,8 +153,10 @@ TEST(StaticObjectTest, SceneryPlacementWithinBounds) {
 	// create a Box2D world with gravity
     b2Vec2 gravity(0.0f, 9.81f);
     b2World world(gravity);
+	
 	// create a StaticObject (plank) at position (20, 12) in the world with size (2, 0.5)
     StaticObject plank("assets/wall.png", b2Vec2(20.0f, 12.0f), world, sf::Vector2f(2.0f, 0.5f));
+	
 	// check that the plank's position is within bounds
     b2Vec2 pos = plank.getBody()->GetPosition();
     EXPECT_GE(pos.x, 0.0f);
