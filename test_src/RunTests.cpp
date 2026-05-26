@@ -43,7 +43,7 @@ protected:
 
 };
 
-TEST(Enemy, First_test) {                                       // Tests that health is initialized correctly.
+TEST(Enemy, Health_test) {                                       // Tests that health is initialized correctly.
     Enemy e(100);
     EXPECT_EQ(e.getHealth(), 100);  
 }
@@ -164,7 +164,7 @@ TEST(StaticObjectTest, SceneryPlacementWithinBounds) {
     EXPECT_LE(pos.y, 24.0f);
 }
 
-TEST(SpatialTests, RelativePositions) {
+TEST(SpatialTests, RelativePositions) {                                    // test to check that objects are placed in the correct positions relative to other objects
     b2Vec2 gravity(0.0f, 0.0f);
     b2World world(gravity);
     sf::Vector2f size(1.0f, 1.0f);
@@ -174,6 +174,7 @@ TEST(SpatialTests, RelativePositions) {
     StaticObject obj2("../../../../assets/wall.png", b2Vec2(10.0f, 0.0f), world, size);
     StaticObject obj3("../../../../assets/wall.png", b2Vec2(20.0f, 0.0f), world, size);
 
+	// get their x positions
     float x1 = obj1.getBody()->GetPosition().x;
     float x2 = obj2.getBody()->GetPosition().x;
     float x3 = obj3.getBody()->GetPosition().x;
@@ -184,7 +185,7 @@ TEST(SpatialTests, RelativePositions) {
     EXPECT_EQ(x3, x1 + 20.0f);
 }
 
-TEST(SpriteTextureTest, SpriteTextureLoad) {
+TEST(SpriteTextureTest, SpriteTextureLoad) {                               // test to check that sprite textures load correctly 
     sf::Texture texture;
     
     // check for a file that does exist
@@ -194,7 +195,7 @@ TEST(SpriteTextureTest, SpriteTextureLoad) {
     EXPECT_FALSE(texture.loadFromFile("../../../../assets/Ang_Birds/thisfiledoesntexist.png"));
 }
 
-class ParamTest : public ::testing::TestWithParam<int> {         // Tests that the value of the param is greater than 1.
+class ParamTest : public ::testing::TestWithParam<int> {                    // Tests that the value of the param is greater than 1.
 protected:
     ParamTest() = default;
     ~ParamTest() = default;
