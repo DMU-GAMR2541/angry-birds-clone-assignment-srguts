@@ -43,7 +43,6 @@ protected:
 
 };
 
-//A single test, not a fixture. No setup is called.
 TEST(Enemy, First_test) {                                       // Tests that health is initialized correctly.
     Enemy e(100);
     EXPECT_EQ(e.getHealth(), 100);  
@@ -90,7 +89,7 @@ TEST_F(EnemyTest, Assert_LethalDamagePopsPig) {                 // Tests that le
 
 TEST_F(EnemyTest, Assert_LethalDamageZerosHealth) {             // Tests that lethal damage reduces the pig's health to zero or lower, using ASSERT_LE.
     enemy->takeDamage(60);
-    ASSERT_LE(enemy->getHealth(), 0);  // getHealth() <= 0
+    ASSERT_LE(enemy->getHealth(), 0);  
 }
  
 // String tests.
@@ -155,7 +154,7 @@ TEST(StaticObjectTest, SceneryPlacementWithinBounds) {
     b2World world(gravity);
 	
 	// create a StaticObject (plank) at position (20, 12) in the world with size (2, 0.5)
-    StaticObject plank("assets/wall.png", b2Vec2(20.0f, 12.0f), world, sf::Vector2f(2.0f, 0.5f));
+    StaticObject plank("../../../../assets/wall.png", b2Vec2(20.0f, 12.0f), world, sf::Vector2f(2.0f, 0.5f));
 	
 	// check that the plank's position is within bounds
     b2Vec2 pos = plank.getBody()->GetPosition();
@@ -171,9 +170,9 @@ TEST(SpatialTests, RelativePositions) {
     sf::Vector2f size(1.0f, 1.0f);
 
     // create 3 objects in a straight line
-    StaticObject obj1("assets/wall.png", b2Vec2(0.0f, 0.0f), world, size);
-    StaticObject obj2("assets/wall.png", b2Vec2(10.0f, 0.0f), world, size);
-    StaticObject obj3("assets/wall.png", b2Vec2(20.0f, 0.0f), world, size);
+    StaticObject obj1("../../../../assets/wall.png", b2Vec2(0.0f, 0.0f), world, size);
+    StaticObject obj2("../../../../assets/wall.png", b2Vec2(10.0f, 0.0f), world, size);
+    StaticObject obj3("../../../../assets/wall.png", b2Vec2(20.0f, 0.0f), world, size);
 
     float x1 = obj1.getBody()->GetPosition().x;
     float x2 = obj2.getBody()->GetPosition().x;
@@ -189,10 +188,10 @@ TEST(SpriteTextureTest, SpriteTextureLoad) {
     sf::Texture texture;
     
     // check for a file that does exist
-    EXPECT_TRUE(texture.loadFromFile("assets/Pig.png"));
+    EXPECT_TRUE(texture.loadFromFile("../../../../assets/Ang_Birds/Pig.png"));
     
     // check for a file that doesnt exist
-    EXPECT_FALSE(texture.loadFromFile("assets/thisfiledoesntexist.png"));
+    EXPECT_FALSE(texture.loadFromFile("../../../../assets/Ang_Birds/thisfiledoesntexist.png"));
 }
 
 class ParamTest : public ::testing::TestWithParam<int> {         // Tests that the value of the param is greater than 1.
