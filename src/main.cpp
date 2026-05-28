@@ -10,11 +10,16 @@
 #include "Pig.h"
 #include "Slingshot.h" 
 #include "StaticObject.h" 
+#include "UI.h"  
 
 int main() {
     // window setup
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "annoyed_flocks");
+    sf::RenderWindow window(sf::VideoMode(1280, 900), "annoyed_flocks");
     window.setFramerateLimit(60);
+
+	// render loading screen before initializing game objects and physics
+    UI startupUI;
+    startupUI.renderLoadingScreen(window);
 
     const float SCALE = 30.0f;
 
@@ -33,11 +38,11 @@ int main() {
     b2World world(b2_gravity);
 
     // solid green ground extending to screen bottom
-    sf::RectangleShape sf_groundVisual(sf::Vector2f(1920.0f, 480.0f)); 
+    sf::RectangleShape sf_groundVisual(sf::Vector2f(1920.0f, 480.0f));
     sf_groundVisual.setFillColor(sf::Color(34, 139, 34)); // forest green
     sf_groundVisual.setOrigin(960.0f, 0.0f); // origin at top center of rectangle
 
-    // b2d definitions
+    // box2d definitions
     b2BodyDef b2_groundBodyDef;
     b2_groundBodyDef.position.Set(960.0f / SCALE, 600.0f / SCALE);
     b2Body* b2_groundBody = world.CreateBody(&b2_groundBodyDef);
