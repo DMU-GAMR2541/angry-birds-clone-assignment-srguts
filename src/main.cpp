@@ -17,11 +17,23 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1280, 900), "annoyed_flocks");
     window.setFramerateLimit(60);
 
-	// render loading screen before initializing game objects and physics
+    // render loading screen before initialising game objects and physics
     UI startupUI;
     startupUI.renderLoadingScreen(window);
 
     const float SCALE = 30.0f;
+
+    // game text visual helpers
+    sf::Text sf_switchPrompt;
+    sf::Font sf_gameFont;
+    if (!sf_gameFont.loadFromFile("../../../../assets/fonts/angry-birds.ttf")) {
+        std::cout << "failed to load game text font" << std::endl;
+    }
+    sf_switchPrompt.setFont(sf_gameFont);
+    sf_switchPrompt.setString("PRESS TAB TO SWITCH BIRDS");
+    sf_switchPrompt.setCharacterSize(30);
+    sf_switchPrompt.setFillColor(sf::Color::Black);
+    sf_switchPrompt.setPosition(930.0f, 50.0f);
 
     // cursor visuals 
     sf::Sprite sp_cursor;
@@ -156,6 +168,9 @@ int main() {
         // draw dynamic objects
         for (auto& bird : birds) bird->draw(window);
         for (auto& pig : pigs) pig->draw(window);
+
+        // draw text prompts
+        window.draw(sf_switchPrompt);
 
         // draw cursor
         window.draw(sp_cursor);
